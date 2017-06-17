@@ -12,6 +12,7 @@ router.get('/:image', function(req, res, next) {
 
     if (!fs.existsSync(filePath)) {
         res.status(404).end("Image not found");
+
         return;
     }
 

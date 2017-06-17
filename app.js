@@ -17,7 +17,7 @@ try {
                 return;
             }
 
-            allow = req.query.key === key.value;
+            allow = (req.query.key === key.value);
         });
 
         if (!allow) {
@@ -46,7 +46,7 @@ app.use('/upload', upload);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

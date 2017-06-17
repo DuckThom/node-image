@@ -31,6 +31,7 @@ router.post('/', function(req, res, next) {
 
         try {
             let saveTo = path.join(imagesDir, randomName);
+
             file.pipe(fs.createWriteStream(saveTo));
         } catch (ex) {
             next(ex);
@@ -42,9 +43,7 @@ router.post('/', function(req, res, next) {
             message: req.protocol + "://" + req.header('Host') + "/view/" + randomName,
             code: 200
         });
-        return;
     });
-
 });
 
 module.exports = router;
