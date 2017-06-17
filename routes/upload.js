@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const URLSafeBase64 = require('urlsafe-base64');
 
 function makeUrl() {
     let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
