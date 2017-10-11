@@ -13,6 +13,8 @@ A simple node app for image uploading and serving.
 
 3. Viewing url is in the response.
 
+Example: `curl -X POST -F image=@"/path/to/png/image.png" https://img.example.com/upload?key=some-api-key`
+
 
 - Viewing
 
