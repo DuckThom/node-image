@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const busboy = require('connect-busboy');
 const app = express();
 const view = require('./routes/view');
 const upload = require('./routes/upload');
+const bodyParser = require('body-parser');
 
 try {
     const apiKeys = require('./keys.json');
@@ -36,7 +36,7 @@ try {
     console.log('NOTE: Without API keys, this app can be used by anyone!');
 }
 
-app.use(busboy({ immediate: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
