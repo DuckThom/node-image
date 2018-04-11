@@ -48,8 +48,14 @@ router.post('/', upload.single('image'), function(req, res, next) {
 
     console.log('Saved uploaded file as: ' + randomName);
 
+    var protocol = req.protocol;
+
+    if (process.env.FORCE_HTTPS) {
+        protocol = 'https';
+    }
+
     return res.status(200).send({
-        message: req.protocol + "://" + req.header('Host') + "/view/" + randomName,
+        message: protocol + "://" + req.header('Host') + "/view/" + randomName,
         code: 200
     });
 });
