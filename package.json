@@ -1,6 +1,6 @@
 {
   "name": "node-image",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple node image server.",
   "main": "app.js",
   "repository": "https://github.com/DuckThom/node-image",

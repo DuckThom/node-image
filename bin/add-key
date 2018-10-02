@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const path = require('path');
 const fs = require('fs');
 const rl = require('readline').createInterface({
     input: process.stdin,
@@ -34,7 +35,7 @@ rl.question('Enter the device name: ', (name) => {
 
     keys.push(key);
 
-    fs.writeFile('../keys.json', JSON.stringify(keys, null, 4), (err) => {
+    fs.writeFile(path.join(__dirname, '../keys.json'), JSON.stringify(keys, null, 4), (err) => {
         console.error(err);
     });
 
