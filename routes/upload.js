@@ -7,9 +7,26 @@ const multer  = require('multer')
 
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
 const uploadPath = path.join(__dirname, '../public/images');
+const allowedTypes = [
+    'image/png',
+    'image/jpeg',
+    'video/mp4',
+    'image/gif',
+    'image/webp',
+    'application/octet-stream'
+];
 
 function fileFilter (req, file, cb) {
-    cb(null, file.mimetype === 'image/png');
+    let accept = allowedTypes.includes(file.mimetype);
+
+    if (
+        file.mimetype === 'application/octet-stream' && 
+        path.extname(file.originalname) !== '.mp4'
+    ) {
+        accept = false;
+    }
+
+    cb(null, accept);
 }
 
 const upload = multer({ dest: uploadPath, fileFilter: fileFilter });
@@ -42,9 +59,16 @@ router.post('/', upload.single('image'), function(req, res, next) {
         });
     }
 
-    fs.rename(req.file.path, path.join(uploadPath, randomName), function (err) {
-        if (err) throw err;
-    });
+    try {
+        fs.rename(req.file.path, path.join(uploadPath, randomName), function (err) {
+            if (err) throw err;
+        });
+    } catch (ex) {
+        return res.status(400).send({
+            message: "File upload failed, file rejected by filter.",
+            code: 400
+        });
+    }
 
     console.log('Saved uploaded file as: ' + randomName);
 
