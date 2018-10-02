@@ -38,5 +38,7 @@ rl.question('Enter the device name: ', (name) => {
         console.error(err);
     });
 
+    console.log('A new key has been added to the keys file: ' + value);
+
     rl.close();
 });
