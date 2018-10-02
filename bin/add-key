@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const rl = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+let keys;
+
+try {
+    keys = require('../keys.json');
+} catch (ex) {
+    keys = [];
+}
+
+const generateApiKey = function () {
+    let key = "";
+
+    for (let i = 0; i < 48; i++) {
+        key = key + chars.charAt(Math.floor(Math.random()*chars.length));
+    }
+
+    return key;
+};
+
+rl.question('Enter the device name: ', (name) => {
+    const value = generateApiKey();
+    const key = {
+        value,
+        name
+    };
+
+    keys.push(key);
+
+    fs.writeFile('../keys.json', JSON.stringify(keys, null, 4), (err) => {
+        console.error(err);
+    });
+
+    rl.close();
+});
